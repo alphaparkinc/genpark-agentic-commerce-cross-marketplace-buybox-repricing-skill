@@ -1,0 +1,92 @@
+{
+  "name": "genpark-agentic-commerce-cross-marketplace-buybox-repricing-skill",
+  "version": "1.0.0",
+  "title": "Cross-Marketplace Buy Box Algorithmic Repricing Skill",
+  "description": "Multi-channel ecommerce Buy Box competitive price velocity tracking (Amazon, Walmart, eBay), algorithmic penny-undercutting, minimum advertised price (MAP) compliance guard, and gross margin floor protector. Built for GenPark (https://www.genpark.ai).",
+  "homepage": "https://www.genpark.ai",
+  "linkedin": "https://www.linkedin.com/company/92955550",
+  "category": "agentic-commerce",
+  "topics": [
+    "buy-box",
+    "dynamic-repricing",
+    "marketplace-arbitrage",
+    "amazon-walmart",
+    "margin-guard",
+    "agentic-commerce",
+    "model-context-protocol",
+    "genpark"
+  ],
+  "tools": [
+    {
+      "name": "calculate_optimal_buybox_price",
+      "description": "Determine competitive Buy Box winning price across Amazon and Walmart while honoring MAP policy and minimum profit margin floor.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sku": {
+            "type": "string"
+          },
+          "current_competitor_buybox_price": {
+            "type": "number"
+          },
+          "unit_cost_cogs": {
+            "type": "number"
+          },
+          "marketplace_referral_fee_pct": {
+            "type": "number",
+            "description": "e.g. 15.0%"
+          },
+          "fba_fulfillment_fee_usd": {
+            "type": "number"
+          },
+          "map_minimum_advertised_price": {
+            "type": "number"
+          },
+          "minimum_net_margin_pct": {
+            "type": "number",
+            "description": "e.g. 12.0%"
+          }
+        },
+        "required": [
+          "sku",
+          "current_competitor_buybox_price",
+          "unit_cost_cogs",
+          "fba_fulfillment_fee_usd",
+          "map_minimum_advertised_price"
+        ]
+      }
+    },
+    {
+      "name": "generate_repricing_feed_payload",
+      "description": "Synthesize automated SP-API (Selling Partner API) or Walmart Marketplace price feed update JSON payload.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "marketplace": {
+            "type": "string",
+            "enum": [
+              "AMAZON_US",
+              "WALMART_US",
+              "EBAY_US"
+            ]
+          },
+          "sku": {
+            "type": "string"
+          },
+          "new_target_price": {
+            "type": "number"
+          },
+          "expected_margin_usd": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "marketplace",
+          "sku",
+          "new_target_price",
+          "expected_margin_usd"
+        ]
+      }
+    }
+  ]
+}
